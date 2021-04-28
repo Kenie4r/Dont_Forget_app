@@ -1,0 +1,29 @@
+package com.cod3hn.dontforget
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        //variable de animacion
+        val animacion = AnimationUtils.loadAnimation(this , R.anim.toup_down)
+        //obtener los datos
+        val img = findViewById<ImageView>(R.id.imgLogo)
+
+        img.animation = animacion
+
+        //tiempo de duracion
+       Handler().postDelayed({
+           var newScreen = Intent(this, dashBoard::class.java)
+           startActivity(newScreen)
+       }, 4000)
+    }
+}
