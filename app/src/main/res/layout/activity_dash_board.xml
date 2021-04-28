@@ -98,6 +98,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/Blue"
+                    android:onClick="abrirMenu"
                     app:srcCompat="@android:drawable/ic_menu_help" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

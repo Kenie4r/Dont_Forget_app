@@ -22,8 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         //tiempo de duracion
        Handler().postDelayed({
-           var newScreen = Intent(this, dashBoard::class.java)
+           val newScreen = Intent(this, dashBoard::class.java)
            startActivity(newScreen)
+           this.finish()
        }, 4000)
+
     }
 }
