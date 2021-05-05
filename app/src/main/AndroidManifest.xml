@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cod3hn.dontforget">
+    package="com.cod3hn.dontforget" >
 
     <application
         android:allowBackup="true"
@@ -8,9 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/clocks"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DontForget">
+        android:theme="@style/Theme.DontForget" >
+        <activity android:name=".crearTareas" >
+        </activity>
         <activity android:name=".dashBoard" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

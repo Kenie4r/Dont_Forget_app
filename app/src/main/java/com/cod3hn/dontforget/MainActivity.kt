@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.Toast
+import com.cod3hn.dontforget.db.DbHelper
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         val img = findViewById<ImageView>(R.id.imgLogo)
 
         img.animation = animacion
+
+        //base de Datos
 
         //tiempo de duracion
        Handler().postDelayed({
