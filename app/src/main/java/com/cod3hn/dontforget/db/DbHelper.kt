@@ -18,11 +18,11 @@ val NOMBRE_TABLA2:String = "tarea"
 val TABLA1_DATOS: String = "\"ID\"\t INTEGER, \"Nombre\"\tTEXT NOT NULL,\n" +
         "\t\"PIN\"\tINTEGER,\n\tPRIMARY KEY(\"ID\" AUTOINCREMENT)"
 val TABLA2_DATOS:String = "\"ID\"\tINTEGER,\n\t\"titulo\"\tTEXT NOT NULL,\n" +
-        "\t\"descripcion\"\tTEXT NOT NULL,\n\t\"horaIncio\"\tTEXT NOT NULL,\n" +
+        "\t\"descripcion\"\tTEXT NOT NULL,\n\t\"horaInicio\"\tTEXT NOT NULL,\n" +
         "\t\"horaFinal\"\tTEXT NOT NULL,\n\t\"fechaInicio\"\tTEXT NOT NULL,\n" +
         "\t\"fechaFinal\"\tTEXT NOT NULL,\n\t\"repetir\"\tINTEGER DEFAULT 1,\n" +
         "\t\"completado\"\tTEXT DEFAULT 'No',\n\tPRIMARY KEY(\"ID\" AUTOINCREMENT)"
-val DATABASE_VERSION:Int = 3;
+val DATABASE_VERSION:Int = 3
 
 //Columnas TABLA tareas
 val COLUMN_TITULO: String = "titulo"
@@ -60,8 +60,8 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
 */
 
     fun IngresarTarea( tarea: tarea){
-        var db = writableDatabase
-        var cv = ContentValues()
+        val db = writableDatabase
+        val cv = ContentValues()
         cv.put(COLUMN_TITULO, tarea.Titulo )
         cv.put(COLUM_DESCRIP, tarea.Descripcion)
         cv.put(COLUMN_HORAOI,tarea.HoraInicio)
@@ -72,12 +72,12 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
         cv.put(COLUMN_COMPLETADO,tarea.Completado)
 
         //hacemos la query
-        var result = db?.insert(NOMBRE_TABLA2, null , cv)
+        val result = db?.insert(NOMBRE_TABLA2, null , cv)
         if(result == -1.toLong()){
-            Toast.makeText( context , "Error: no sirve", Toast.LENGTH_LONG)
+            Toast.makeText( context , "Tarea no creada, vuelve a intentarlo", Toast.LENGTH_LONG).show()
 
         }else{
-            Toast.makeText(context, "Bien", Toast.LENGTH_LONG)
+            Toast.makeText(context, "Tarea creada con exito", Toast.LENGTH_LONG).show()
         }
     }
 }

@@ -3,6 +3,7 @@ package com.cod3hn.dontforget
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -22,20 +23,29 @@ class crearTareas : AppCompatActivity() {
                     tvFechaFin.text.toString().length>0 && tvHoraFin.text.toString().length>0&&
                     tvHoraIncio.text.toString().length>0 && tvFechaInicio.text.toString().length>0){
 
-                var titulo:String = findViewById<EditText>(R.id.etNombre).text.toString()
-                var descripcion:String = findViewById<EditText>(R.id.etDescrip).text.toString()
-                var horaFin:String = findViewById<TextView>(R.id.tvHoraFin).text.toString()
-                var horaInicio:String = findViewById<TextView>(R.id.tvHoraIncio).text.toString()
-                var fechaInicio:String = findViewById<TextView>(R.id.tvFechaInicio).text.toString()
-                var fechaFin:String = findViewById<TextView>(R.id.tvFechaFin).text.toString()
-                var tarea = tarea(titulo, descripcion, horaInicio, horaFin, fechaInicio, fechaFin)
-                var database = DbHelper(this)
+                val titulo:String = findViewById<EditText>(R.id.etNombre).text.toString()
+                val descripcion:String = findViewById<EditText>(R.id.etDescrip).text.toString()
+                val horaFin:String = findViewById<TextView>(R.id.tvHoraFin).text.toString()
+                val horaInicio:String = findViewById<TextView>(R.id.tvHoraIncio).text.toString()
+                val fechaInicio:String = findViewById<TextView>(R.id.tvFechaInicio).text.toString()
+                val fechaFin:String = findViewById<TextView>(R.id.tvFechaFin).text.toString()
+                val tarea = tarea(titulo, descripcion, horaInicio, horaFin, fechaInicio, fechaFin)
+                val database = DbHelper(this)
                 database.IngresarTarea(tarea)
+
+
+                Handler().postDelayed({
+                    var intent = Intent( this, dashBoard::class.java)
+                    startActivity(intent)
+                }, 1000)
             }else{
-                Toast.makeText(this, "Porfavor rellene todos los campos", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Porfavor rellene todos los campos", Toast.LENGTH_SHORT).show()
             }
        }
-
+        btnDashBoard.setOnClickListener{
+            var intent = Intent( this, dashBoard::class.java)
+            startActivity(intent)
+        }
     }
 
     fun click(view: View){
@@ -101,11 +111,6 @@ class crearTareas : AppCompatActivity() {
         textview.apply {
             text = "$day/$month/$year"
         }
-    }
-    fun abrirDash( view: View){
-        var abrir = Intent( this, dashBoard::class.java)
-        startActivity(abrir)
-        this.finish()
     }
 
 }
