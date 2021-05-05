@@ -1,5 +1,6 @@
 package com.cod3hn.dontforget.db
 
+import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -89,9 +90,9 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
     fun getdata():MutableList<all_task>{
         val db = writableDatabase
         var list :MutableList<all_task>  = ArrayList()
+        var query = "SELECT * FROM "+ NOMBRE_TABLA2
         var columns= arrayOf(COLUMN_ID, COLUMN_TITULO, COLUM_DESCRIP, COLUMN_HORAOI, COLUMN_HORAF, COLUMN_FECHAI, COLUMN_FECHAF, COLUMN_REPETICION, COLUMN_COMPLETADO)
-        val result = db.exc
-
+        val result = db.rawQuery(query, null)
 
         if(result.moveToFirst()){
             do{
