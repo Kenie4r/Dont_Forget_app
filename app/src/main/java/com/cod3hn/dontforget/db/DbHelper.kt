@@ -25,6 +25,7 @@ val TABLA2_DATOS:String = "\"ID\"\tINTEGER,\n\t\"titulo\"\tTEXT NOT NULL,\n" +
 val DATABASE_VERSION:Int = 3
 
 //Columnas TABLA tareas
+val COLUMN_ID:String = "ID"
 val COLUMN_TITULO: String = "titulo"
 val COLUM_DESCRIP:String = "descripcion"
 val COLUMN_HORAOI:String = "horaInicio"
@@ -52,6 +53,7 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
         val destroy2 = "DROP TABLE $NOMBRE_TABLA2"
         db?.execSQL(destroy)
         db?.execSQL(destroy2)
+        onCreate(db)
     }
 /*
     fun insertar (usuario:List<usuario>){
@@ -80,4 +82,41 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
             Toast.makeText(context, "Tarea creada con exito", Toast.LENGTH_LONG).show()
         }
     }
+
+
+
+
+    fun getdata():MutableList<all_task>{
+        val db = writableDatabase
+        var list :MutableList<all_task>  = ArrayList()
+        var columns= arrayOf(COLUMN_ID, COLUMN_TITULO, COLUM_DESCRIP, COLUMN_HORAOI, COLUMN_HORAF, COLUMN_FECHAI, COLUMN_FECHAF, COLUMN_REPETICION, COLUMN_COMPLETADO)
+        val result = db.exc
+
+
+        if(result.moveToFirst()){
+            do{
+                var tarea = all_task()
+                tarea._ID = result.getString(0).toInt()
+                tarea.Titulo = result.getString(1)
+                tarea.Descripcion = result.getString(2)
+                tarea.HoraInicio   =result.getString(3)
+                tarea.HoraFin = result.getString(4)
+                tarea.FechaInicio = result.getString(5)
+                tarea.FechaFinal = result.getString(6)
+                tarea.repeticion = result.getString(7)
+                tarea.Completado = result.getString(8)
+
+
+                list.add(tarea)
+
+            }while (result.moveToNext())
+        }else{
+
+        }
+        result.close()
+        db.close()
+        return list
+    }
+
+
 }

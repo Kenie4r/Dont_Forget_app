@@ -8,8 +8,8 @@ class tarea{
     var HoraFin:String = ""
     var FechaInicio:String = ""
     var FechaFinal:String = ""
-    var repeticion:String = "1"
-    var Completado:String = "no"
+    var repeticion:String = ""
+    var Completado:String = ""
 
     //constructor
     constructor(titulo: String, descripcion:String , horaInicio:String, horaFin:String ,

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.cod3hn.dontforget.fragments.actual_task
+import com.cod3hn.dontforget.fragments.all_tasks
 import com.cod3hn.dontforget.fragments.menu
 
 
@@ -37,6 +38,14 @@ class dashBoard : AppCompatActivity() {
     }
     fun abrirMenu(view: View){
         val pantalla = menu()
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fr_view, pantalla)
+            addToBackStack(null)
+            commit()
+        }
+    }
+    fun verTasks(view: View){
+        val pantalla = all_tasks()
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fr_view, pantalla)
             addToBackStack(null)

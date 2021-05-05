@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
-            android:onClick="crearTask"
+            android:onClick="verTasks"
             app:srcCompat="@android:drawable/ic_menu_add" />
 
         <ImageButton
@@ -79,7 +79,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
-            android:onClick="abrirMenu"
+            android:onClick="crearTask"
             app:srcCompat="@android:drawable/ic_menu_help" />
     </LinearLayout>
 
