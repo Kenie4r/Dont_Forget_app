@@ -23,7 +23,7 @@ val TABLA2_DATOS:String = "\"ID\"\tINTEGER,\n\t\"titulo\"\tTEXT NOT NULL,\n" +
         "\t\"horaFinal\"\tTEXT NOT NULL,\n\t\"fechaInicio\"\tTEXT NOT NULL,\n" +
         "\t\"fechaFinal\"\tTEXT NOT NULL,\n\t\"repetir\"\tINTEGER DEFAULT 1,\n" +
         "\t\"completado\"\tTEXT DEFAULT 'No',\n\tPRIMARY KEY(\"ID\" AUTOINCREMENT)"
-val DATABASE_VERSION:Int = 3
+val DATABASE_VERSION:Int = 6
 
 //Columnas TABLA tareas
 val COLUMN_ID:String = "ID"
@@ -46,6 +46,7 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
 
         db?.execSQL(crearTabla1)
         db?.execSQL(crearTabla2)
+
 
     }
 
@@ -88,10 +89,10 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
 
 
     fun getdata():MutableList<all_task>{
-        val db = writableDatabase
+        val db = readableDatabase
         var list :MutableList<all_task>  = ArrayList()
-        var query = "SELECT * FROM "+ NOMBRE_TABLA2
-        var columns= arrayOf(COLUMN_ID, COLUMN_TITULO, COLUM_DESCRIP, COLUMN_HORAOI, COLUMN_HORAF, COLUMN_FECHAI, COLUMN_FECHAF, COLUMN_REPETICION, COLUMN_COMPLETADO)
+        val query = "SELECT * FROM "+ NOMBRE_TABLA2
+       // var columns= arrayOf(COLUMN_ID, COLUMN_TITULO, COLUM_DESCRIP, COLUMN_HORAOI, COLUMN_HORAF, COLUMN_FECHAI, COLUMN_FECHAF, COLUMN_REPETICION, COLUMN_COMPLETADO)
         val result = db.rawQuery(query, null)
 
         if(result.moveToFirst()){
@@ -111,8 +112,6 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
                 list.add(tarea)
 
             }while (result.moveToNext())
-        }else{
-
         }
         result.close()
         db.close()
