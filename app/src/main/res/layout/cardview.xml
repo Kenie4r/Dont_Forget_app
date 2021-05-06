@@ -117,7 +117,7 @@
                 android:padding="12sp">
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btnStart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12sp"
@@ -127,7 +127,7 @@
                     android:textColor="@color/white" />
 
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/btnEdit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="12sp"

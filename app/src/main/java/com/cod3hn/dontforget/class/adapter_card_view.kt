@@ -5,7 +5,9 @@ import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.cod3hn.dontforget.R
@@ -66,7 +68,8 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
         var itemHoraIncio: TextView
         var itemHoraFinal: TextView
         var itemFechas: TextView
-
+        var btnEdit: Button
+        var btnStart:Button
         constructor(view: View):super(view){
             val bindingItemsRV = CardviewBinding.bind(view)
             itemID = bindingItemsRV.tvID
@@ -75,12 +78,15 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
             itemHoraIncio = bindingItemsRV.tvHoraInicio
             itemHoraFinal = bindingItemsRV.tvHorafinal
             itemFechas = bindingItemsRV.tvFEchas
+            btnEdit = bindingItemsRV.btnEdit
+            btnStart = bindingItemsRV.btnStart
+            btnStart.setOnClickListener(){
+                val name = cursor.getString(1)
+                Toast.makeText(context, "TItulo: "+name, Toast.LENGTH_LONG).show()
+            }
         }
 
 
 
-        init {
-
-        }
     }
 }
