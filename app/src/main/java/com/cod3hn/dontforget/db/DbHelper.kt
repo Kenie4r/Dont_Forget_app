@@ -102,12 +102,11 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
                 tarea.Titulo = result.getString(1)
                 tarea.Descripcion = result.getString(2)
                 tarea.HoraInicio   =result.getString(3)
-                tarea.HoraFin = result.getString(4)
+                tarea.HoraFin = result.getString( 4)
                 tarea.FechaInicio = result.getString(5)
                 tarea.FechaFinal = result.getString(6)
                 tarea.repeticion = result.getString(7)
                 tarea.Completado = result.getString(8)
-
 
                 list.add(tarea)
 

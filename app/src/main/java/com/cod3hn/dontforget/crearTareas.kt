@@ -45,8 +45,9 @@ class crearTareas : AppCompatActivity() {
         btnDashBoard.setOnClickListener{
             var intent = Intent( this, dashBoard::class.java)
             startActivity(intent)
-            this.onStop()
+            this.finish()
         }
+
     }
 
     fun click(view: View){
