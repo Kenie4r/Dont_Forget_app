@@ -12,6 +12,11 @@
     <string name="title_activity_screen1">MainActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fecha">Ingresar hora de incio</string>
-    <string name="fecha2">Ingresar hora de fin</string>
+    <string name="fecha">Ingresar la fecha de incio</string>
+    <string name="fecha2">Ingresar fecha  de fin</string>
+    <string name="Hora">Ingrese la hora de inicio</string>
+    <string name="Hora2">Ingrese la hora de fin</string>
+    <string name="Delete_Task">¿Quieres borrar esta tarea?</string>
+    <string name="si_eliminar">Sí, quiero eliminarlo</string>
+    <string name="No_quiero">No quiero eliminarlo,</string>
 </resources>

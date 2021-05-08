@@ -1,12 +1,17 @@
 package com.cod3hn.dontforget
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.renderscript.ScriptGroup
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cod3hn.dontforget.`class`.Adapter_card_view
@@ -29,7 +34,7 @@ class tareas : AppCompatActivity() {
 
         db = DbHp.readableDatabase
 
-        val cursor: Cursor = db.rawQuery("SELECT * FROM tarea ", null)
+        val cursor: Cursor = db.rawQuery("SELECT * FROM tarea  WHERE completado = 'no'", null)
 
         val adaptador = Adapter_card_view()
 
@@ -69,8 +74,12 @@ class tareas : AppCompatActivity() {
             startActivity(intent)
         }*/
 
+    }/*
+    fun abrir(  id:Int){
+        var abrir = Intent(this, edit_task(id)::class.java)
+        startActivity(abrir)
     }
-
+*/
 
     override fun onDestroy() {
         super.onDestroy()

@@ -19,25 +19,52 @@ class crearTareas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_tareas)
        btn_insert.setOnClickListener {
+           var fechaTexto = "Ingresar la fecha de incio"
+           var fechaFinTexto = "Ingresar fecha  de fin"
+           var horaText ="Ingrese la hora de inicio"
+           var hora2Text = "Ingrese la hora de fin"
             if(etNombre.text.toString().length > 0 && etDescrip.text.toString().length>0 &&
-                    tvFechaFin.text.toString().length>0 && tvHoraFin.text.toString().length>0&&
-                    tvHoraIncio.text.toString().length>0 && tvFechaInicio.text.toString().length>0){
+                (tvFechaFin.text.toString().length>0 && tvFechaFin.text.toString() != fechaFinTexto ) &&
+                (tvHoraFin.text.toString().length>0 && tvHoraFin.text.toString()!= hora2Text)&&
+                ( tvHoraIncio.text.toString().length>0 && tvHoraIncio.text.toString()!=horaText)&&
+                (tvFechaInicio.text.toString().length>0 && tvFechaInicio.text.toString() != fechaTexto)){
 
-                val titulo:String = findViewById<EditText>(R.id.etNombre).text.toString()
-                val descripcion:String = findViewById<EditText>(R.id.etDescrip).text.toString()
-                val horaFin:String = findViewById<TextView>(R.id.tvHoraFin).text.toString()
-                val horaInicio:String = findViewById<TextView>(R.id.tvHoraIncio).text.toString()
-                val fechaInicio:String = findViewById<TextView>(R.id.tvFechaInicio).text.toString()
-                val fechaFin:String = findViewById<TextView>(R.id.tvFechaFin).text.toString()
-                val tarea = tarea(titulo, descripcion, horaInicio, horaFin, fechaInicio, fechaFin)
-                val database = DbHelper(this)
-                database.IngresarTarea(tarea)
+                    var fechaIncio = findViewById<TextView>(R.id.tvFechaInicio).text.toString()
+                    var arrayFechaInicio = fechaIncio.split("/").toTypedArray()
+                    var fechaFinal = findViewById<TextView>(R.id.tvFechaFin).text.toString()
+                    var arrayFechFinal = fechaFinal.split("/").toTypedArray()
+                    var HoraInicio = findViewById<TextView>(R.id.tvHoraIncio).text.toString()
+                    var arrayHoraIncio = HoraInicio.split(":").toTypedArray()
+                    var HoraFinal = findViewById<TextView>(R.id.tvHoraFin).text.toString()
+                    var arrayHoraFinal = HoraFinal.split(":").toTypedArray()
+                    if(arrayFechFinal[0].toInt()>= arrayFechaInicio[0].toInt() &&
+                            arrayFechFinal[1].toInt()>= arrayFechaInicio[1].toInt() &&
+                            arrayFechFinal[2].toInt()>= arrayFechaInicio[2].toInt() &&
+                            arrayHoraFinal[0].toInt()>=arrayHoraIncio[0].toInt() &&
+                            arrayHoraFinal[1].toInt()>= arrayHoraIncio[1].toInt()){
+                        val titulo:String = findViewById<EditText>(R.id.etNombre).text.toString()
+                        val descripcion:String = findViewById<EditText>(R.id.etDescrip).text.toString()
+                        val horaFin:String = findViewById<TextView>(R.id.tvHoraFin).text.toString()
+                        val horaInicio:String = findViewById<TextView>(R.id.tvHoraIncio).text.toString()
+                        val fechaInicio:String = findViewById<TextView>(R.id.tvFechaInicio).text.toString()
+                        val fechaFin:String = findViewById<TextView>(R.id.tvFechaFin).text.toString()
+                        val tarea = tarea(titulo, descripcion, horaInicio, horaFin, fechaInicio, fechaFin)
+                        val database = DbHelper(this)
+                        database.IngresarTarea(tarea)
 
 
-                Handler().postDelayed({
-                    var intent = Intent( this, dashBoard::class.java)
-                    startActivity(intent)
-                }, 1000)
+                        Handler().postDelayed({
+                            var intent = Intent( this, dashBoard::class.java)
+                            startActivity(intent)
+                        }, 200)
+
+                    } else{
+                        Toast.makeText(this, "Error: porfavor revisa las fechas ingresadas", Toast.LENGTH_LONG).show()
+                    }
+/*
+
+                */
+
             }else{
                 Toast.makeText(this, "Porfavor rellene todos los campos", Toast.LENGTH_SHORT).show()
             }
@@ -115,4 +142,9 @@ class crearTareas : AppCompatActivity() {
         }
     }
 
+/*
+    fun splitText(variable: String){
+        var datos = variable.split(":",false, 0)
+    }
+*/
 }

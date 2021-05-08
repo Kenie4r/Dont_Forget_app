@@ -3,12 +3,16 @@ package com.cod3hn.dontforget.db
 import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.service.autofill.FillEventHistory
 import android.widget.Toast
 import androidx.core.content.contentValuesOf
 import com.cod3hn.dontforget.`class`.*
 import com.cod3hn.dontforget.crearTareas
+import com.cod3hn.dontforget.tareas
+import kotlinx.coroutines.delay
 import java.security.AccessControlContext
 
 //Creación de base de datos
@@ -74,7 +78,6 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
         cv.put(COLUMN_FECHAF,tarea.FechaFinal)
         cv.put(COLUMN_REPETICION,tarea.repeticion)
         cv.put(COLUMN_COMPLETADO,tarea.Completado)
-
         //hacemos la query
         val result = db?.insert(NOMBRE_TABLA2, null , cv)
         if(result == -1.toLong()){
@@ -84,38 +87,82 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
             Toast.makeText(context, "Tarea creada con exito", Toast.LENGTH_LONG).show()
         }
     }
-
-
-
-
-    fun getdata():MutableList<all_task>{
+    fun obtenerActivas():Int{
         val db = readableDatabase
-        var list :MutableList<all_task>  = ArrayList()
-        val query = "SELECT * FROM "+ NOMBRE_TABLA2
-       // var columns= arrayOf(COLUMN_ID, COLUMN_TITULO, COLUM_DESCRIP, COLUMN_HORAOI, COLUMN_HORAF, COLUMN_FECHAI, COLUMN_FECHAF, COLUMN_REPETICION, COLUMN_COMPLETADO)
-        val result = db.rawQuery(query, null)
+        val cv = ContentValues()
+        val query = "SELECT * FROM "+ NOMBRE_TABLA2 + " WHERE "+ COLUMN_COMPLETADO+"= 'inProgress' LIMIT 1"
 
+        val result: Cursor = db.rawQuery(query, null)
+        return result.count
+    }
+
+
+
+    fun getdata( theID: Int): tarea {
+        val db = readableDatabase
+        val cv = ContentValues()
+        val query = "SELECT * FROM "+ NOMBRE_TABLA2 + " WHERE "+ COLUMN_ID+ "="+theID+" LIMIT 1"
+
+        val result: Cursor = db.rawQuery(query, null)
+        var tarea = tarea()
         if(result.moveToFirst()){
-            do{
-                var tarea = all_task()
-                tarea._ID = result.getString(0).toInt()
-                tarea.Titulo = result.getString(1)
-                tarea.Descripcion = result.getString(2)
-                tarea.HoraInicio   =result.getString(3)
-                tarea.HoraFin = result.getString( 4)
-                tarea.FechaInicio = result.getString(5)
-                tarea.FechaFinal = result.getString(6)
-                tarea.repeticion = result.getString(7)
-                tarea.Completado = result.getString(8)
-
-                list.add(tarea)
-
-            }while (result.moveToNext())
+            tarea.Titulo = result.getString(1)
+            tarea.Descripcion = result.getString(2)
+            tarea.HoraInicio   =result.getString(3)
+            tarea.HoraFin = result.getString( 4)
+            tarea.FechaInicio = result.getString(5)
+            tarea.FechaFinal = result.getString(6)
+            tarea.repeticion = result.getString(7)
+            tarea.Completado = result.getString(8)
         }
         result.close()
         db.close()
-        return list
+        return tarea
     }
 
+    fun inProgress(_ID: Int):Boolean{
+        val  db = writableDatabase
+        val  cv = ContentValues()
+        val id = _ID.toString()
+
+        cv.put(COLUMN_COMPLETADO, "inProgress")
+
+        val result = db.update(NOMBRE_TABLA2, cv, "ID=?", arrayOf(id))
+        if(result != -1){
+            Toast.makeText( context , "Tarea actualizada con exito", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(context, "Tarea no pudo ser actualizada", Toast.LENGTH_LONG).show()
+        }
+        return true
+    }
+    fun updateData(_ID:Int, titulo:String,Descrip:String,HoraI:String, HoraF:String, FechaI:String, FechaF:String): Boolean{
+        val db = writableDatabase
+        val cv = ContentValues()
+        var id = _ID.toString()
+        //escribir los valores
+        cv.put(COLUMN_TITULO, titulo)
+        cv.put(COLUM_DESCRIP, Descrip)
+        cv.put(COLUMN_HORAOI, HoraI)
+        cv.put(COLUMN_HORAF, HoraF)
+        cv.put(COLUMN_FECHAI, FechaI)
+        cv.put(COLUMN_FECHAF, FechaF)
+
+
+        val result = db?.update(NOMBRE_TABLA2,cv,"ID=?",arrayOf(id))
+        if(result != -1){
+            Toast.makeText( context , "Tarea actualizada con exito", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(context, "Tarea no pudo ser actualizada", Toast.LENGTH_LONG).show()
+        }
+        return true
+    }
+
+
+    fun DeleteTask(_ID:Int):Int{
+        val db = this.writableDatabase
+
+        var id = _ID.toString()
+        return db.delete(NOMBRE_TABLA2,"ID = ?", arrayOf(id))
+    }
 
 }

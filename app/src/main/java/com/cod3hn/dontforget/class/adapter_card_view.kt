@@ -1,21 +1,23 @@
 package com.cod3hn.dontforget.`class`
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.cod3hn.dontforget.R
-import com.cod3hn.dontforget.dashBoard
 import com.cod3hn.dontforget.databinding.CardviewBinding
 import com.cod3hn.dontforget.db.DbHelper
-import com.cod3hn.dontforget.tareas
-import kotlinx.android.synthetic.main.cardview.view.*
+import com.cod3hn.dontforget.edit_task
 
 class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
 
@@ -45,12 +47,6 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
         holder.itemHoraIncio.text = cursor.getString(3)
         holder.itemHoraFinal.text  = cursor.getString(4)
         holder.itemFechas.text  = cursor.getString(5) + "- "+ cursor.getString(6)
-        /*holder.itemTitulo.text = data[position].Titulo
-        holder.itemdescrip.text = data[position].Descripcion
-        holder.itemHoraIncio.text = data[position].HoraInicio
-        holder.itemHoraFinal.text  =data[position].HoraFin
-        holder.itemFechas.text  = data[position].FechaInicio + "- "+ data[position].FechaFinal*/
-
     }
 
     override fun getItemCount(): Int {
@@ -81,12 +77,27 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
             btnEdit = bindingItemsRV.btnEdit
             btnStart = bindingItemsRV.btnStart
             btnStart.setOnClickListener(){
-                val name = cursor.getString(1)
-                Toast.makeText(context, "TItulo: "+name, Toast.LENGTH_LONG).show()
+                var nActivas = DbHelper(context).obtenerActivas()
+                if(nActivas>0){
+                    Toast.makeText(context, "Ya se encuentra un tarea activa, debes terminarla para comenzar otra", Toast.LENGTH_LONG).show()
+                }else{
+                    var position = adapterPosition
+                    cursor.moveToPosition(position)
+                    var _ID = cursor.getString(0).toInt()
+                    DbHelper(context).inProgress(_ID)
+                }
+
+            }
+
+            btnEdit.setOnClickListener(){
+                var position = adapterPosition
+                cursor.moveToPosition(position)
+                var abrir  = Intent(context, edit_task()::class.java).apply {
+                    putExtra("_ID", cursor.getString(0))
+                }
+                    context.startActivity(abrir)
             }
         }
-
-
 
     }
 }

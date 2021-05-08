@@ -9,8 +9,29 @@
         android:roundIcon="@mipmap/clocks"
         android:supportsRtl="true"
         android:theme="@style/Theme.DontForget">
-        <activity android:name=".tareas"></activity>
-        <activity android:name=".crearTareas"></activity>
+        <receiver
+            android:name=".TimerExpiredReciver"
+            android:enabled="true"
+            android:exported="false"></receiver>
+        <receiver
+            android:name=".NotificationReciver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="Pausar" />
+                <action android:name="Terminar" />
+                <action android:name="Iniciar" />
+                <action android:name="Continuar" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".TimerExpired"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".edit_task" />
+        <activity android:name=".tareas" />
+        <activity android:name=".crearTareas" />
         <activity android:name=".dashBoard" />
         <activity android:name=".MainActivity">
             <intent-filter>
