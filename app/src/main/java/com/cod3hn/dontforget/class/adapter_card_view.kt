@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.cod3hn.dontforget.R
+import com.cod3hn.dontforget.dashBoard
 import com.cod3hn.dontforget.databinding.CardviewBinding
 import com.cod3hn.dontforget.db.DbHelper
 import com.cod3hn.dontforget.edit_task
@@ -24,7 +25,6 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
 
     lateinit var context: Context
     lateinit var cursor : Cursor
-
 
     fun Adapter_card_view( context: Context, cursor: Cursor){
         this.context = context
@@ -67,6 +67,7 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
         var btnEdit: Button
         var btnStart:Button
         constructor(view: View):super(view){
+
             val bindingItemsRV = CardviewBinding.bind(view)
             itemID = bindingItemsRV.tvID
             itemTitulo = bindingItemsRV.tvTitulo
@@ -85,6 +86,54 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
                     cursor.moveToPosition(position)
                     var _ID = cursor.getString(0).toInt()
                     DbHelper(context).inProgress(_ID)
+                    var minutos = 0
+                    if(cursor.getString( 5 )== cursor.getString(6)){
+                        var fechaI = cursor.getString(5)
+                        var fechaF = cursor.getString( 6)
+                        var arrayFechaI = fechaI.split("/").toTypedArray()
+                        var arrayFechaF = fechaF.split("/").toTypedArray()
+                        var HoraII = cursor.getString(3)
+                        var HoraF  = cursor.getString( 4)
+                        var arrayHoraF = HoraF.split(":").toTypedArray()
+                        var arrayHoraII = HoraII.split(":").toTypedArray()
+                        var minutosI = arrayHoraII[1].toInt()
+                        var minutosF = arrayHoraF[1].toInt()
+                        var horitaF = arrayHoraF[0].toInt()
+                        var horitaI = arrayHoraII[0].toInt()
+                        var anio1 = arrayFechaI[2].toInt()
+                        var mes1 = arrayFechaI[1].toInt()
+                        var dia1 = arrayFechaI[0].toInt()
+                        var anio2 = arrayFechaF[2].toInt()
+                        var mes2 = arrayFechaF[1].toInt()
+                        var dia2 = arrayFechaF[0].toInt()
+
+                        if(dia1==dia2){
+                            if(horitaF==horitaI){
+                                minutos = minutosF-minutosI
+                            }else if(horitaF>horitaI){
+                                var horas = horitaF-horitaI
+                                horas *=60
+                                minutos = (minutosF-minutosI) + horas
+                            }
+                        }else{
+                            var nDias = dia2-dia1
+                            var horas = horitaF-horitaI
+
+
+                            nDias *=24
+                            nDias-=horas
+                            nDias *=60
+                            minutos = (minutosF-minutosI) + nDias
+                        }
+
+                    }
+
+                    tiempo(context).saveMinutos(minutos)
+                    tiempo(context).saveID(_ID)
+
+                    var actividad = Intent(context, dashBoard::class.java)
+                    context.startActivity(actividad)
+
                 }
 
             }
@@ -101,3 +150,5 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
 
     }
 }
+
+

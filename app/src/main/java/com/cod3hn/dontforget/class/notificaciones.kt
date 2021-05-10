@@ -129,40 +129,7 @@ class notificacion{
 
 
 
-     lateinit var  notificationManager : NotificationManager
-    lateinit var channel : NotificationChannel
-    lateinit var builder : Notification.Builder
-    private val CHANNEL_ID = "com.cod3hn.dontforget"
-    private val DESCRIPTION = "Test notification"
 
-    fun crearNotificacion(context: Context){
-        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        //val intent = Intent(context, dashBoard()::class.java)
-        //val intentoPendiente = PendingIntent( CHANNEL_ID , 0 , intent , 0)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            channel = NotificationChannel(CHANNEL_ID, DESCRIPTION, NotificationManager.IMPORTANCE_HIGH)
-            channel.enableLights(true)
-            channel.lightColor = Color.BLUE
-            channel.enableVibration(true)
-
-            notificationManager.createNotificationChannel(channel)
-
-
-
-            builder = Notification.Builder(context, CHANNEL_ID).apply {
-                setContentTitle("¡No lo olvides!")
-                setContentText("Una de tus tareas está apunto de comenzar")
-                setSmallIcon(R.mipmap.clocks)
-            }
-        }else{
-            builder = Notification.Builder(context).apply {
-                setContentTitle("¡No lo olvides!")
-                setContentText("Una de tus tareas está apunto de comenzar")
-                setSmallIcon(R.mipmap.clocks)
-            }
-        }
-        notificationManager.notify(1234, builder.build())
-    }
 
 
 }

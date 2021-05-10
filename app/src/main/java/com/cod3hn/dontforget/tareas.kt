@@ -1,24 +1,15 @@
 package com.cod3hn.dontforget
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.ScriptGroup
-import androidx.annotation.RequiresApi
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.cod3hn.dontforget.`class`.Adapter_card_view
-import com.cod3hn.dontforget.`class`.all_task
 import com.cod3hn.dontforget.databinding.ActivityTareasBinding
 import com.cod3hn.dontforget.db.DbHelper
-import kotlinx.android.synthetic.main.activity_tareas.*
+
 class tareas : AppCompatActivity() {
 
     private  lateinit var binding : ActivityTareasBinding

@@ -7,8 +7,8 @@ import com.cod3hn.dontforget.dashBoard
 class PreUtil {
     companion object{
         fun getTimerLengtj(context: Context):Int{
-            //PARA PONER EL TIEMPO DEL TIMER
-           return 30
+            var minutos = tiempo(context).getTiempo()
+            return minutos
         }
         private  const val  PREVIOUS_TIMER_LENGTH_SECONDS_ID = "com.cod3hn.dontforget.previous_timer_legnth"
 

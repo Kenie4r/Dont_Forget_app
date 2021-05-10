@@ -28,7 +28,7 @@
             android:contentDescription="Home"
             android:padding="20dp"
             android:paddingStart="20dp"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            app:srcCompat="@drawable/ic_baseline_alarm_24" />
 
         <ImageButton
             android:id="@+id/btnTareas"
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@drawable/ic_baseline_menu_24" />
 
         <ImageButton
             android:id="@+id/menu"
@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
-            app:srcCompat="@android:drawable/ic_menu_help" />
+            app:srcCompat="@drawable/ic_baseline_settings_24" />
     </LinearLayout>
 
     <LinearLayout

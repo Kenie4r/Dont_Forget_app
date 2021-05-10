@@ -95,7 +95,14 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
         val result: Cursor = db.rawQuery(query, null)
         return result.count
     }
+    fun obtenerCreadas():Int{
+        val db = readableDatabase
+        val cv = ContentValues()
+        val query = "SELECT * FROM "+ NOMBRE_TABLA2 + " WHERE "+ COLUMN_COMPLETADO+"= 'no'"
 
+        val result: Cursor = db.rawQuery(query, null)
+        return result.count
+    }
 
 
     fun getdata( theID: Int): tarea {
@@ -126,6 +133,21 @@ class DbHelper(val context: Context ):SQLiteOpenHelper(context, NOMBRE_BASE_DATO
         val id = _ID.toString()
 
         cv.put(COLUMN_COMPLETADO, "inProgress")
+
+        val result = db.update(NOMBRE_TABLA2, cv, "ID=?", arrayOf(id))
+        if(result != -1){
+            Toast.makeText( context , "Tarea actualizada con exito", Toast.LENGTH_LONG).show()
+        }else{
+            Toast.makeText(context, "Tarea no pudo ser actualizada", Toast.LENGTH_LONG).show()
+        }
+        return true
+    }
+    fun finished(_ID:Int):Boolean{
+        val  db = writableDatabase
+        val  cv = ContentValues()
+        val id = _ID.toString()
+
+        cv.put(COLUMN_COMPLETADO, "Completed")
 
         val result = db.update(NOMBRE_TABLA2, cv, "ID=?", arrayOf(id))
         if(result != -1){

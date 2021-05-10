@@ -4,13 +4,20 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.health.TimerStat
 import android.view.View
-import com.cod3hn.dontforget.`class`.PreUtil
-import com.cod3hn.dontforget.`class`.notificacion
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cod3hn.dontforget.`class`.*
+import com.cod3hn.dontforget.databinding.ActivityDashBoardBinding
+import com.cod3hn.dontforget.databinding.ActivityTareasBinding
+import com.cod3hn.dontforget.databinding.CardviewIniciadasBinding
+import com.cod3hn.dontforget.db.DbHelper
 import com.cod3hn.dontforget.fragments.menu
 import kotlinx.android.synthetic.main.activity_dash_board.*
 import java.sql.Time
@@ -25,13 +32,40 @@ class dashBoard : AppCompatActivity() {
     private lateinit var  timer:CountDownTimer
     private var segundosTimer: Long = 0
     private  var timerState = TimerState.Stopped
-
+    private  lateinit var binding : ActivityDashBoardBinding
+    private lateinit var DbHp : DbHelper
+    private  lateinit var db : SQLiteDatabase
 
     private var segundosrestantes: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dash_board)
+        //REcicler view
+        binding = ActivityDashBoardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        DbHp= DbHelper(this)
+
+        db = DbHp.readableDatabase
+
+        val cursor: Cursor = db.rawQuery("SELECT * FROM tarea  WHERE completado = 'inProgress'", null)
+
+        val adaptador = adaptador_iniciadas()
+
+
+        adaptador.adaptador_iniciadas(this, cursor)
+
+        binding.rvIniciadas.layoutManager = LinearLayoutManager(this )
+
+        binding.rvIniciadas.adapter = adaptador
+
+
+
+
+
+
+
+        //btns
         btnPlay.setOnClickListener(){
             v->
             startTimer()
@@ -44,13 +78,7 @@ class dashBoard : AppCompatActivity() {
             timerState = TimerState.Paused
             actualizarBotones()
         }
-        btnQuit.setOnClickListener(){
-            v->
-            timer.cancel()
-            onTimerFinished()
-        }
     }
-
 
 
     companion object{
@@ -75,7 +103,6 @@ class dashBoard : AppCompatActivity() {
             get() = Calendar.getInstance().timeInMillis/1000
 
     }
-
 
 
 
@@ -135,7 +162,8 @@ class dashBoard : AppCompatActivity() {
     }
     private fun onTimerFinished(){
         timerState = TimerState.Stopped
-
+        //var _ID = tiempo(this).ObtenerID()
+        //DbHelper(this).finished(_ID)
         setNewTimerLegnth()
 
         materialProgressBar.progress = 0
@@ -184,17 +212,14 @@ class dashBoard : AppCompatActivity() {
             TimerState.Running->{
                 btnPlay.isEnabled = false
                 btnPause.isEnabled = true
-                btnQuit.isEnabled  =true
             }
             TimerState.Paused->{
                 btnPlay.isEnabled = true
                 btnPause.isEnabled = false
-                btnQuit.isEnabled  =true
             }
             TimerState.Stopped->{
                 btnPlay.isEnabled = true
                 btnPause.isEnabled = false
-                btnQuit.isEnabled  =false
             }
         }
     }
@@ -203,11 +228,25 @@ class dashBoard : AppCompatActivity() {
         var abrir = Intent( this, crearTareas::class.java)
         startActivity(abrir)
 
+        this.finish()
+
     }
 
     fun verTasks(view: View){
-        val intent = Intent(this, tareas::class.java)
-        startActivity(intent)
+        var existen = DbHelper(this).obtenerCreadas()
+        if(existen>0){
+            val intent = Intent(this, tareas::class.java)
+            startActivity(intent)
+            this.finish()
+        }else{
+            Toast.makeText(this, "Aún no hay ninguna tarea creada", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+
+    fun finalizarTimer(){
+        onTimerFinished()
     }
 
 

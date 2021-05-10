@@ -3,9 +3,7 @@ package com.cod3hn.dontforget
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.cod3hn.dontforget.`class`.PreUtil
-import com.cod3hn.dontforget.`class`.appConst
-import com.cod3hn.dontforget.`class`.notificacion
+import com.cod3hn.dontforget.`class`.*
 
 class NotificationReciver : BroadcastReceiver() {
 
@@ -15,6 +13,8 @@ class NotificationReciver : BroadcastReceiver() {
                 dashBoard.removeAlarm(context)
                 PreUtil.setTimerState(dashBoard.TimerState.Stopped, context)
                 notificacion.hideTimerNotification(context)
+                functions().finalizar(context)
+                tiempo(context).saveMinutos(0)
             }
             appConst.ACTION_PAUSE->{
                 var secondsRemaining = PreUtil.getSecondsRemaining(context)
