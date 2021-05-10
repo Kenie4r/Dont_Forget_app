@@ -192,6 +192,7 @@ class crearTareas : AppCompatActivity() {
         Handler().postDelayed({
             var intent = Intent( this, dashBoard::class.java)
             startActivity(intent)
+            this.finish()
         }, 200)
     }
 

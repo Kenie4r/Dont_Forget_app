@@ -31,8 +31,6 @@ class notificacion{
             nBuilder.setContentTitle("¡Tiempo acabado!")
                 .setContentText("Ya es hora de descanzar")
                 .setContentIntent(getPendingIntentWithStack(context, dashBoard::class.java))
-                .addAction(R.drawable.ic_baseline_play_arrow_24, "Start", startPendingIntent)
-
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
 
@@ -73,7 +71,7 @@ class notificacion{
                 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("¿Ya es hora del descanzo?")
+            nBuilder.setContentTitle("¿Sigues ahí?")
                 .setContentText("¿Podemos continuar?")
                 .setContentIntent(getPendingIntentWithStack(context, dashBoard::class.java))
                 .setOngoing(true)
