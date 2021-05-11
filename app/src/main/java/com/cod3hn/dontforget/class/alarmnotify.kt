@@ -27,11 +27,10 @@ class  Notifications(){
             .setContentIntent(PendingIntent.getActivity(context
                 ,0,intent,PendingIntent.FLAG_UPDATE_CURRENT))
             .setAutoCancel(true)
-        val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        nManager.createNotificationChannel(CHANNEL_ID,CHANNEL_NAME, true )
         val nm=context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        nm.createNotificationChannel(CHANNEL_ID,CHANNEL_NAME, true )
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            nManager.notify(Noti__ID    , builder.build())
+           nm.notify(Noti__ID    , builder.build())
         }else if(android.os.Build.VERSION.SDK_INT>=android.os.Build.VERSION_CODES.ECLAIR) {
             nm.notify(NOTIFIYTAG, 123574, builder.build())
         }else{

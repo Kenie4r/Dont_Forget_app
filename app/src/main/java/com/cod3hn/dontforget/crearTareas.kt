@@ -65,8 +65,11 @@ class crearTareas : AppCompatActivity() {
                                     Guardar()
                                     var  Hora = arrayHoraIncio[0].toInt()
                                     var minutos = arrayHoraIncio[1].toInt()
+                                    var day = arrayFechaInicio[0].toInt()
+                                    var month = arrayFechaInicio[1].toInt()
+                                    var year = arrayFechaInicio[2].toInt()
 
-                                    saveData.SaveData(Hora, minutos)
+                                    saveData.SaveData(Hora, minutos, day, month, year)
                                     saveData.setAlarm()
                                 }else if(arrayHoraFinal[0].toInt()==arrayHoraIncio[0].toInt()){
                                     //comprobar minutos
@@ -74,7 +77,11 @@ class crearTareas : AppCompatActivity() {
                                         Guardar()
                                         var  Hora = arrayHoraIncio[0].toInt()
                                         var minutos = arrayHoraIncio[1].toInt()
-                                        saveData.SaveData(Hora, minutos)
+                                        var day = arrayFechaInicio[0].toInt()
+                                        var month = arrayFechaInicio[1].toInt()
+                                        var year = arrayFechaInicio[2].toInt()
+
+                                        saveData.SaveData(Hora, minutos, day, month, year)
                                         saveData.setAlarm()
                                     }else{
                                         //error

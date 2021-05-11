@@ -19,10 +19,13 @@ class saveAlarm {
         sharedRef=context.getSharedPreferences("myref",Context.MODE_PRIVATE)
     }
 
-    fun SaveData(hour:Int,minute:Int){
+    fun SaveData(hour:Int,minute:Int, day:Int, mes:Int, year:Int){
         var editor=sharedRef!!.edit()
         editor.putInt("hour",hour)
         editor.putInt("minute",minute)
+        editor.putInt("day", day)
+        editor.putInt("month",mes)
+        editor.putInt("year", year)
         editor.commit()
     }
 
@@ -32,14 +35,29 @@ class saveAlarm {
     fun  getMinute():Int{
         return sharedRef!!.getInt("minute",0)
     }
-
+    fun getDay():Int{
+        return sharedRef!!.getInt("day",0)
+    }
+    fun getMonth():Int{
+        return sharedRef!!.getInt("month",0)
+    }
+    fun getYear():Int{
+        return sharedRef!!.getInt("year",0)
+    }
     fun setAlarm(){
         val hour:Int=getHour()
         val minute:Int=getMinute()
+        val day:Int = getDay()
+        val month:Int = getMonth()
+        val year:Int= getYear()
         val calender=Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY,hour)
         calender.set(Calendar.MINUTE,minute)
         calender.set(Calendar.SECOND,0)
+        calender.set(Calendar.YEAR, year)
+        calender.set(Calendar.DAY_OF_MONTH, day)
+        calender.set(Calendar.MONTH, month)
+        //calender.set(Calendar.DAY_OF_MONTH)
 
         val am= context!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 

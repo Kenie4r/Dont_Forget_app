@@ -2,6 +2,7 @@ package com.cod3hn.dontforget.`class`
 
 import android.content.Context
 import android.content.Intent
+import android.content.PeriodicSync
 import android.database.Cursor
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,7 @@ class adaptador_iniciadas: RecyclerView.Adapter<adaptador_iniciadas.ViewHolder>(
                 cursor.moveToPosition(position)
                 var _ID = cursor.getString(0).toInt()
                 DbHelper(context).finished(_ID)
-
+                PreUtil.setTimerState(dashBoard.TimerState.Stopped, context)
                 val intent = Intent(context, dashBoard::class.java)
                 tiempo(context).saveMinutos(0)
                 context.startActivity(intent)
