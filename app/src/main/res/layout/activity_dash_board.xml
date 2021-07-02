@@ -6,6 +6,96 @@
     android:layout_height="match_parent"
     tools:context=".dashBoard">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/LightBlue"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layClock"
+            android:layout_width="301dp"
+            android:layout_height="295dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/clock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvCountDown"
+                android:layout_width="290dp"
+                android:layout_height="94dp"
+                android:layout_marginStart="73dp"
+                android:layout_marginEnd="73dp"
+                android:text="00:00:00"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="50sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                android:id="@+id/materialProgressBar"
+                style="@style/Widget.MaterialProgressBar.ProgressBar"
+                android:layout_width="295dp"
+                android:layout_height="286dp"
+                android:minWidth="300dp"
+                android:minHeight="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layClock">
+
+            <ImageButton
+                android:id="@+id/btnPause"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:backgroundTint="@color/Blue"
+                app:srcCompat="@drawable/ic_baseline_pause_circle_filled_white" />
+
+            <ImageButton
+                android:id="@+id/btnPlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/Blue"
+                app:srcCompat="@drawable/ic_baseline_play_arrow_white" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIniciadas"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -31,19 +121,6 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/fr_view"
-        android:name="com.cod3hn.dontforget.fragments.actual_task"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/Blue_200"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-    </FrameLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -53,34 +130,33 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btnDashBoard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
             android:contentDescription="Home"
-            android:onClick="abrirDashboard"
             android:padding="20dp"
             android:paddingStart="20dp"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            app:srcCompat="@drawable/ic_baseline_alarm_24" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/btnTareas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Blue"
+            android:onClick="verTasks"
+            app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+        <ImageButton
+            android:id="@+id/menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
             android:onClick="crearTask"
-            app:srcCompat="@android:drawable/ic_menu_add" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/Blue"
-            android:onClick="abrirMenu"
-            app:srcCompat="@android:drawable/ic_menu_help" />
+            app:srcCompat="@drawable/ic_baseline_settings_24" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
