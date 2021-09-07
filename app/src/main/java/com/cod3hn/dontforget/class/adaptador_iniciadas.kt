@@ -1,5 +1,6 @@
 package com.cod3hn.dontforget.`class`
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.PeriodicSync
@@ -20,6 +21,7 @@ import com.cod3hn.dontforget.db.DbHelper
 class adaptador_iniciadas: RecyclerView.Adapter<adaptador_iniciadas.ViewHolder>() {
     lateinit var context: Context
     lateinit var cursor : Cursor
+    lateinit var binding: CardviewIniciadasBinding
     fun adaptador_iniciadas( context: Context, cursor: Cursor){
         this.context = context
         this.cursor  = cursor
@@ -42,15 +44,28 @@ class adaptador_iniciadas: RecyclerView.Adapter<adaptador_iniciadas.ViewHolder>(
             btnTerminar = binding.btnFinalizar
 
             btnTerminar.setOnClickListener(){
+                var dialog = AlertDialog.Builder(context)
+                dialog.apply {
+                    setTitle("¿Ya haz terminado?")
+                    setPositiveButton("Sí, ya termine"){
+                        dialog, wich->
+                        var position = adapterPosition
+                        cursor.moveToPosition(position)
+                        var _ID = cursor.getString(0).toInt()
+                        DbHelper(context).finished(_ID)
+                        dashBoard.removeAlarm(context)
+                        PreUtil.setTimerState(dashBoard.TimerState.Stopped, context)
+                        notificacion.hideTimerNotification(context)
+                        dashBoard().finish()
+                        val intent = Intent(context, dashBoard::class.java)
+                        tiempo(context).saveMinutos(0)
+                        context.startActivity(intent)
 
-                var position = adapterPosition
-                cursor.moveToPosition(position)
-                var _ID = cursor.getString(0).toInt()
-                DbHelper(context).finished(_ID)
-                PreUtil.setTimerState(dashBoard.TimerState.Stopped, context)
-                val intent = Intent(context, dashBoard::class.java)
-                tiempo(context).saveMinutos(0)
-                context.startActivity(intent)
+                    }
+                    setNegativeButton("No, aún me falta", null)
+                }
+                dialog.show()
+
 
             }
 

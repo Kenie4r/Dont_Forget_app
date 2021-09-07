@@ -117,6 +117,9 @@ class Adapter_card_view: RecyclerView.Adapter<Adapter_card_view.ViewHolder>() {
                             }
                         }else{
                             var nDias = dia2-dia1
+                            if(horitaF==0){
+                                horitaF= 24
+                            }
                             var horas = horitaF-horitaI
 
 

@@ -18,7 +18,6 @@ import com.cod3hn.dontforget.databinding.ActivityDashBoardBinding
 import com.cod3hn.dontforget.databinding.ActivityTareasBinding
 import com.cod3hn.dontforget.databinding.CardviewIniciadasBinding
 import com.cod3hn.dontforget.db.DbHelper
-import com.cod3hn.dontforget.fragments.menu
 import kotlinx.android.synthetic.main.activity_dash_board.*
 import java.sql.Time
 import java.util.*

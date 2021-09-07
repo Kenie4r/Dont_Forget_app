@@ -41,10 +41,10 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/amatica_sc_bold"
+                android:fontFamily="sans-serif"
                 android:text="Crear una nueva tarea"
                 android:textAlignment="center"
-                android:textSize="36sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -87,7 +87,7 @@
                 android:textSize="20sp" />
 
             <TableLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12sp">
 
@@ -109,7 +109,7 @@
 
                     <Button
                         android:id="@+id/btnHoraFin"
-                        android:layout_width="match_parent"
+                        android:layout_width="144dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="12sp"
                         android:layout_weight="1"
@@ -122,11 +122,11 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="43dp">
 
                     <TextView
                         android:id="@+id/tvHoraIncio"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12sp"
                         android:layout_weight="1"
@@ -166,7 +166,7 @@
 
                     <Button
                         android:id="@+id/button5"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="12sp"
                         android:layout_weight="1"
@@ -194,7 +194,7 @@
 
                     <TextView
                         android:id="@+id/tvFechaInicio"
-                        android:layout_width="match_parent"
+                        android:layout_width="187dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12sp"
                         android:layout_weight="1"

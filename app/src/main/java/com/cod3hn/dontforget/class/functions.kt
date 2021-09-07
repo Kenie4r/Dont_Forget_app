@@ -13,8 +13,6 @@ class functions {
 
         val intent = Intent(context, dashBoard::class.java)
 
-        context.startActivity(intent)
-
     }
 
 }
